@@ -19,7 +19,7 @@ pipeline {
         stage("3: Liveness Test") {
             steps {
                 sh 'curl -i localhost:49160'
-                sleep 60
+                sleep 30
             }
         }
         stage("4: Repo Cleanup") {
@@ -30,4 +30,4 @@ pipeline {
                 """
             }
         }
-    }}
+    } }
