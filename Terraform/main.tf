@@ -3,10 +3,17 @@ provider "aws" {
     profile = var.profile
 }
 
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "divyam-key"
+  public_key = var.deployer-public-key
+}
+
 resource "aws_instance" "slave" {
     ami = var.ami_id
     instance_type = var.slave_instance
     ebs_optimized = true
+    key_name = aws_key_pair.deployer.key_name
 
     user_data = templatefile("data/data.tpl", {
     cluster_name = var.environment_name
